@@ -43,7 +43,16 @@ namespace veeb.Controllers
         public List<Toode> Add(int id, string nimi, double hind, bool aktiivne)
         {
             Toode toode = new Toode(id, nimi, hind, aktiivne);
-            _tooted.Add(toode);
+            bool check = true;
+            foreach (var item in _tooted)
+            {
+                if (item.Name == nimi && item.Price == hind)
+                {
+                    check = false;
+                }
+            }
+            if (check) { _tooted.Add(toode); }
+            else { return _tooted; }
             return _tooted;
         }
 
